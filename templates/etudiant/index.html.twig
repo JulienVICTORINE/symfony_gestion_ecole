@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Étudiants
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h1>Liste des Étudiants</h1>
+		<a href="{{ path('app_etudiant_new') }}" class="btn btn-success">Ajouter un étudiant</a>
+	</div>
+	{% if etudiants is empty %}
+		<div class="alert alert-info">
+			Aucun étudiant trouvé.
+			<a href="{{ path('app_etudiant_new') }}">Ajoutez le premier étudiant</a>.
+		</div>
+	{% else %}
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>E-mail</th>
+						<th>Date de naissance</th>
+						<th>Niveau</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for etudiant in etudiants %}
+						<tr>
+							<td>{{ etudiant.id }}</td>
+							<td>{{ etudiant.nom }}</td>
+							<td>{{ etudiant.prenom }}</td>
+							<td>{{ etudiant.email }}</td>
+							<td>{{ etudiant.dateNaissance|date('d/m/Y') }}</td>
+							<td>{{ etudiant.niveau }}</td>
+							<td>
+								<a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" class="btn btn-info btn-sm">Voir</a>
+								<a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+								<form method="post" action="{{ path('app_etudiant_delete', {'id': etudiant.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etudiant.id) }}">
+									<button class="btn btn-danger btn-sm">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}

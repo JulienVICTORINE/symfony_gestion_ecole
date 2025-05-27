@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Gestion d'une école
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Bienvenue dans l'outil de gestion d'une école</h1>
+			<p class="lead">Gérez facilement les professeurs, les étudiants et les cours.</p>
+			<div class="row mt-4">
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Gestion des professeurs</h5>
+							<p class="card-text">Ajoutez, consultez et supprimez des professeurs.</p>
+
+							<a href="{{ path('app_professeur_index') }}" class="btn btn-primary">Voir les professeurs</a>
+
+							<a href="{{ path('app_professeur_new') }}" class="btn btn-success">Ajouter un professeur</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Gestion des étudiants</h5>
+							<p class="card-text">Ajoutez, consultez, modifiez et supprimez des étudiants.</p>
+
+							<a href="{{ path('app_etudiant_index') }}" class="btn btn-primary">Voir les étudiants</a>
+
+							<a href="{{ path('app_etudiant_new') }}" class="btn btn-success">Ajouter un étudiant</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Gestion des cours</h5>
+							<p class="card-text">Ajoutez, consultez, modifiez et supprimez des cours.</p>
+
+							<a href="{{ path('app_cours_index') }}" class="btn btn-primary">Voir les cours</a>
+
+							<a href="{{ path('app_cours_new') }}" class="btn btn-success">Ajouter un cours</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

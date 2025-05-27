@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Professeur
+{% endblock %}
+
+{% block body %}
+	<h1>Ajouter un nouveau professeur</h1>
+	{{ form_start(form) }}
+
+	<div class="mb-3">
+		{{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.nom) }}
+	</div>
+
+	<div class="mb-3">
+		{{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.prenom) }}
+	</div>
+
+	<div class="mb-3">
+		{{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.email) }}
+	</div>
+
+	<div class="mb-3">
+		{{ form_label(form.matiereTeaching, 'Matière principale', {'label_attr': {'class': 'form-label'}}) }}
+		{{ form_widget(form.matiereTeaching, {'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.matiereTeaching) }}
+	</div>
+
+	<button type="submit" class="btn btn-success">Enregistrer</button>
+	<a href="{{ path('app_professeur_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+	{{ form_end(form) }}
+{% endblock %}

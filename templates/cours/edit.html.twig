@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Cours
+{% endblock %}
+
+{% block body %}
+<h1>Modifier le Cours</h1>
+
+{{ form_start(form) }}
+
+<div class="mb-3">
+	{{ form_label(form.nom, 'Nom du cours', {'label_attr': {'class': 'form-label'}}) }}
+	{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+	{{ form_errors(form.nom) }}
+</div>
+
+<div class="mb-3">
+	{{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+	{{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+	{{ form_errors(form.description) }}
+</div>
+
+<div class="mb-3">
+	{{ form_label(form.nombreHeures, 'Nombre d\'heures', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nombreHeures, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nombreHeures) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.professeur, 'Professeur', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.professeur, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.professeur) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.etudiants, 'Étudiants inscrits', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.etudiants, {'attr': {'class': 'form-control', 'multiple': 'multiple'}}) }}
+        {{ form_errors(form.etudiants) }}
+    </div>
+
+	<button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+    	<a href="{{ path('app_cours_show', {'id': cour.id}) }}" class="btn btn-secondary">Annuler</a>
+    <a href="{{ path('app_cours_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ form_end(form) }}
+{% endblock %}

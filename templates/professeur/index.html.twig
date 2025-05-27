@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Professeurs
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h1>Liste des Professeurs</h1>
+		<a href="{{ path('app_professeur_new') }}" class="btn btn-success">Ajouter un professeur</a>
+	</div>
+	{% if professeurs is empty %}
+		<div class="alert alert-info">
+			Aucun professeur trouvé.
+			<a href="{{ path('app_professeur_new') }}">Ajoutez le premier professeur</a>.
+		</div>
+	{% else %}
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>E-mail</th>
+						<th>Matière principale</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for professeur in professeurs %}
+						<tr>
+							<td>{{ professeur.id }}</td>
+							<td>{{ professeur.nom }}</td>
+							<td>{{ professeur.prenom }}</td>
+							<td>{{ professeur.email }}</td>
+							<td>{{ professeur.matiereTeaching }}</td>
+							<td>
+								<a href="{{ path('app_professeur_show', {'id': professeur.id}) }}" class="btn btn-info btn-sm">Voir</a>
+								<form method="post" action="{{ path('app_professeur_delete', {'id': professeur.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ professeur.id) }}">
+									<button class="btn btn-danger btn-sm">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}

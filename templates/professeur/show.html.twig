@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Professeur
+{% endblock %}
+
+{% block body %}
+	<h1>Détails du Professeur</h1>
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">{{ professeur.prenom }}
+				{{ professeur.nom }}</h5>
+
+			<p class="card-text">
+				<strong>ID :</strong>
+				{{ professeur.id }}<br>
+				<strong>Nom :</strong>
+				{{ professeur.nom }}<br>
+				<strong>Prénom :</strong>
+				{{ professeur.prenom }}<br>
+				<strong>Adresse e-mail :</strong>
+				{{ professeur.email }}<br>
+				<strong>Matière principale :</strong>
+				{{ professeur.matiereTeaching }}
+			</p>
+
+			<h2>Cours enseignés</h2>
+
+			{% if professeur.cours is empty %}
+				<div class="alert alert-info">Aucun cours n'est encore associé à ce professeur.</div>
+			{% else %}
+				<ul class="list-group">
+					{% for cours in professeur.cours %}
+						<li class="list-group-item d-flex justify-content-between align-items-center">
+							<span>
+								<strong>{{ cours.nom }}</strong><br>
+								<small>{{ cours.description|default('Pas de description') }}</small>
+							</span>
+							<span class="badge bg-primary rounded-pill">
+								{{ cours.nombreHeures }}
+							</span>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+	<div class="mt-3">
+		<a href="{{ path('app_professeur_index') }}" class="btn btn-secondary">Retour à la liste</a>
+		<form method="post" action="{{ path('app_professeur_delete', {'id': professeur.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?')">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ professeur.id) }}">
+			<button class="btn btn-danger">Supprimer</button>
+		</form>
+	</div>
+
+{% endblock %}

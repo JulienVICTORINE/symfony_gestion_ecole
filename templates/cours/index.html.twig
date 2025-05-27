@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Cours
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h1>Liste des Cours</h1>
+		<a href="{{ path('app_cours_new') }}" class="btn btn-success">Ajouter un cours</a>
+	</div>
+	{% if cours is empty %}
+		<div class="alert alert-info">
+			Aucun cours trouvé.
+			<a href="{{ path('app_cours_new') }}">Ajoutez le premier cours</a>.
+		</div>
+	{% else %}
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>Nombre Heures</th>
+						<th>Professeur</th>
+						<th>Nombre d'Étudiants</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for cour in cours %}
+						<tr>
+							<td>{{ cour.id }}</td>
+							<td>{{ cour.nom }}</td>
+							<td>{{ cour.description }}</td>
+							<td>{{ cour.nombreHeures }}</td>
+							<td>{{ cour.professeur.nom ~ ' ' ~ cour.professeur.prenom }}</td>
+							<td>{{ cour.etudiants|length }}</td>
+							<td>
+								<a href="{{ path('app_cours_show', {'id': cour.id}) }}" class="btn btn-info btn-sm">Voir</a>
+								<a href="{{ path('app_cours_edit', {'id': cour.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+								<form method="post" action="{{ path('app_cours_delete', {'id': cour.id}) }}" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cour.id) }}">
+									<button class="btn btn-danger btn-sm">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}
