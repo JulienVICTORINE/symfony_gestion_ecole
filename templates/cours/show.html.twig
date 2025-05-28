@@ -15,7 +15,8 @@
 				{{ cours.description }}<br>
 				<strong>Nombre d'heures :</strong>
 				{{ cours.nombreHeures }}<br>
-
+				<strong>Nombre d'Étudiants :</strong>
+				{{ cours.etudiants|length }}<br>
 				<strong>Professeur :</strong>
 				{% if cours.professeur %}
 					{{ cours.professeur.prenom }}
@@ -26,6 +27,8 @@
 			</p>
 		</div>
 	</div>
+
+	<br>
 
 	<h3>Étudiants inscrits</h3>
 
