@@ -6,8 +6,11 @@ use App\Repository\ProfesseurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
+
+#[UniqueEntity(fields: ['email'], message: 'Un professeur utilise déjà cet email.')]
 class Professeur
 {
     #[ORM\Id]
@@ -21,7 +24,7 @@ class Professeur
     #[ORM\Column(length: 100)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 100)]
