@@ -18,10 +18,19 @@ final class CoursController extends AbstractController
 {
     // Afficher la liste de tous les cours
     #[Route('/', name: 'app_cours_index', methods: ['GET'])]
-    public function index(CoursRepository $coursRepository): Response
+    public function index(Request $request, CoursRepository $coursRepository): Response
     {
+        $search = $request->query->get('search', "");
+
+        if ($search) {
+            $cours = $coursRepository->findBySearchTerm($search);
+        } else {
+            $cours = $coursRepository->findAll();
+        }
+
         return $this->render('cours/index.html.twig', [
-            'cours' => $coursRepository->findAll(),
+            'cours' => $cours,
+            'search' => $search,
         ]);
     }
 

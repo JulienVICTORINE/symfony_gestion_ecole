@@ -38,7 +38,7 @@ class EtudiantForm extends AbstractType
                 'class' => Cours::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
-                'expanded' => false, // si true alors on ordonne la sélection des cours avec des checkboxes
+                'expanded' => true, // si true alors on ordonne la sélection des cours avec des checkboxes
                 'required' => false,
             ])
         ;

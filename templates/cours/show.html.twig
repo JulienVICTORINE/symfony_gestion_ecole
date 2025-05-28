@@ -38,7 +38,7 @@
 					{{ etudiant.prenom }}
 					{{ etudiant.nom }}
 					<span class="badge bg-secondary">{{ etudiant.email }}</span>
-					<form method="post" action="{{ path('cours_remove_etudiant', {'coursId': cour.id, 'etudiantId': etudiant.id}) }}" style="display:inline-block;" onsubmit="return confirm('Retirer cet étudiant ?')">
+					<form method="post" action="{{ path('cours_remove_etudiant', {'coursId': cours.id, 'etudiantId': etudiant.id}) }}" style="display:inline-block;" onsubmit="return confirm('Retirer cet étudiant ?')">
 						<input type="hidden" name="_token" value="{{ csrf_token('remove' ~ etudiant.id) }}">
 						<button class="btn btn-sm btn-danger">Désinscrire</button>
 					</form>

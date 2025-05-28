@@ -40,4 +40,16 @@ class CoursRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // Rechercher un cours par son nom ou par professeur
+    public function findBySearchTerm(string $searchTerm) : array
+    {
+        return $this->createQueryBuilder('c')
+        ->leftJoin('c.professeur', 'p')
+        ->andWhere('c.nom LIKE :search OR p.nom LIKE :search OR p.prenom LIKE :search')
+        ->setParameter('search', '%' . $searchTerm . '%')
+        ->orderBy('c.nom', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
 }
