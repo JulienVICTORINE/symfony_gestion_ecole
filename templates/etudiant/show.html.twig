@@ -20,7 +20,9 @@
 				<strong>Adresse e-mail :</strong>
 				{{ etudiant.email }}<br>
 				<strong>Date de naissance :</strong>
-				{{ etudiant.dateNaissance|date('d/m/Y') }}<br>
+				{{ etudiant.dateNaissance|date('d/m/Y') }}
+				({{ etudiant.age }}
+				ans)<br>
 				<strong>Niveau :</strong>
 				{{ etudiant.niveau }}
 			</p>

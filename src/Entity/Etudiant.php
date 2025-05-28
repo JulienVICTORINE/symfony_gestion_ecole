@@ -100,6 +100,16 @@ class Etudiant
         return $this;
     }
 
+    // Fonction pour Calcul de l'âge des étudiants
+    public function getAge(): ?int 
+    {
+        $today = new \DateTime();
+        return $today->diff($this->dateNaissance)->y;
+
+        // diff() calcule la différence entre aujourd’hui et la date de naissance
+        // ->y donne le nombre d'années (l'âge)
+    }
+
     public function getNiveau(): ?string
     {
         return $this->niveau;
