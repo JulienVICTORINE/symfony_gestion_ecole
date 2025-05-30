@@ -77,7 +77,31 @@
 	</div>
 
 	<h2 class="mt-5">Graphique : Étudiants par niveau</h2>
-	<div class="my-4">
-		{{ render_chart(chart) }}
-	</div>
+	<canvas id="etudiantsNiveauxChart" width="400" height="200"></canvas>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('etudiantsNiveauxChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels|json_encode|raw }},
+                datasets: [{
+                    label: 'Nombre d\'étudiants',
+                    data: {{ data|json_encode|raw }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+		console.log("Labels :", {{ labels|json_encode|raw }});
+    	console.log("Data :", {{ data|json_encode|raw }});
+    </script>
 {% endblock %}

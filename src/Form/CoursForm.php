@@ -7,6 +7,7 @@ use App\Entity\Etudiant;
 use App\Entity\Professeur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,11 @@ class CoursForm extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('nombreHeures')
+            ->add('nombreHeures', IntegerType::class, [
+                'attr' => [
+                    'min' => 0
+                ]
+            ])
             ->add('professeur', EntityType::class, [
                 'class' => Professeur::class,
                 'choice_label' => 'nomcomplet',
