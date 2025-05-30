@@ -40,4 +40,21 @@ class EtudiantRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // Fonction pour compter le nombre d'étudiants par niveau
+    public function countEtudiantParNiveau(): array {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->select('e.niveau, COUNT(e.id) as count')
+            ->groupBy('e.niveau');
+        
+        $results =$queryBuilder->getQuery()->getResult();
+
+        $data = [];
+        foreach ($results as $row) {
+            $data[$row['niveau']] = $row['count'];
+        }
+
+        return $data;
+    }
+
 }
