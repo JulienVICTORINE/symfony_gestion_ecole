@@ -8,7 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
+
 class Cours
 {
     #[ORM\Id]
@@ -17,15 +21,31 @@ class Cours
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+
+    // Validation pour le nom du cours
+    #[Assert\NotBlank(message: 'Le nom du cours ne peut pas être vide')]
+    #[Assert\Length(
+        min:2, 
+        max:100, 
+        minMessage: 'Le nom doit contenir au moins {{ limit }} caractères',  
+        maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères'
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+
+    // Validation pour la description du cours
+    #[Assert\NotBlank(message: 'La description du cours est requise.')]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le nombre d'heures ne peut pas être vide")]
+    #[Assert\Type(type: 'integer', message: "Le nombre d'heures est un nombre entier")]
+    #[Assert\Range(min:0, max:200, notInRangeMessage: 'Le nombre d\'heures doit être entre {{ min }} et {{ max }}' )]
     private ?int $nombreHeures = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
+    #[Assert\NotNull(message: 'Un professeur doit être sélectionné pour ce cours.')]
     private ?Professeur $professeur = null;
 
     /**

@@ -22,13 +22,14 @@ class CoursForm extends AbstractType
                 'class' => Professeur::class,
                 'choice_label' => 'nomcomplet',
                 'placeholder' => 'Choisir un professeur',
+                'required' => true,
             ])
             ->add('etudiants', EntityType::class, [
                 'class' => Etudiant::class,
                 'choice_label' => 'nomcomplet',
                 'multiple' => true,
                 'expanded' => true, // si true alors on sélectionne les étudiants avec les checkboxes
-                'required' => false,
+                'required' => true,
             ])
         ;
     }

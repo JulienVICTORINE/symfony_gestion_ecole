@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
 
 #[UniqueEntity(fields: ['email'], message: 'Un professeur utilise déjà cet email.')]
@@ -19,15 +22,40 @@ class Professeur
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+
+    // Validation pour le nom du professeur
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(
+        min:2, 
+        max:100, 
+        minMessage: 'Le nom doit contenir au moins {{ limit }} caractères',  
+        maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères'
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 100)]
+
+    // Validation pour le prénom du professeur
+    #[Assert\NotBlank(message: 'Le prénom ne peut pas être vide')]  
+    #[Assert\Length( 
+        min: 2, 
+        max: 100, 
+        minMessage: 'Le prénom doit contenir au moins {{ limit }} caractères',  
+        maxMessage: 'Le prénom ne peut pas dépasser {{ limit }} caractères'  
+    )]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 180, unique: true)]
+
+    // Validation pour l'email du professeur
+    #[Assert\NotBlank(message: 'L\'email est obligatoire.')]
+    #[Assert\Email(message: 'L\'email "{{ value }}" n\'est pas valide.')]
     private ?string $email = null;
 
     #[ORM\Column(length: 100)]
+
+    // Validation pour la matière principale
+    #[Assert\NotBlank(message: 'La matière est requise.')]
     private ?string $matiereTeaching = null;
 
     /**
