@@ -52,6 +52,10 @@ class Cours
      * @var Collection<int, Etudiant>
      */
     #[ORM\ManyToMany(targetEntity: Etudiant::class, inversedBy: 'cours')]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Vous devez inscrire au moins un étudiant à ce cours.'
+    )]
     private Collection $etudiants;
 
     public function __construct()

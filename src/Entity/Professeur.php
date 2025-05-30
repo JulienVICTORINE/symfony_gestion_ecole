@@ -55,7 +55,7 @@ class Professeur
     #[ORM\Column(length: 100)]
 
     // Validation pour la matière principale
-    #[Assert\NotBlank(message: 'La matière est requise.')]
+    #[Assert\NotBlank(message: 'La matière principale est requise.')]
     private ?string $matiereTeaching = null;
 
     /**
